@@ -1,0 +1,10 @@
+spring:
+ application:
+  name: spring-ai-function
+ ai:
+  openai:
+   api-key: ${OPENAI_API_KEY}
+
+weather-app:
+ end-point: https://api.api-ninjas.com/v1/weather
+ api-key: ${NINJA_API_KEY}
