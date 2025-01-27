@@ -8,3 +8,9 @@ spring:
 weather-app:
  end-point: https://api.api-ninjas.com/v1/weather
  api-key: ${NINJA_API_KEY}
+ user-message: You are a weather service. You receive weather information from a service which gives you the information based on the metrics system. When answering the weather in an imperial system country, you should convert the temperature to Fahrenheit and the wind speed to miles per hour.
+
+stock-app:
+ end-point: https://api.api-ninjas.com/v1/stockprice
+ api-key: ${NINJA_API_KEY}
+ user-message: You are a stock broker. You have access to all stock market and stock price. When Answering the Stock Price for a ticket, share details like Curreny (like "USD"), Name of the stock, Price of a stock with two decimal value (like $190.99)
