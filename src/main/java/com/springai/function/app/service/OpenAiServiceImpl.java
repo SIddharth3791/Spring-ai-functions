@@ -7,6 +7,7 @@ import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.PromptTemplate;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
+import org.springframework.ai.converter.BeanOutputConverter;
 import org.springframework.ai.model.ModelOptionsUtils;
 import org.springframework.ai.model.function.FunctionCallback;
 import org.springframework.ai.openai.OpenAiChatModel;
@@ -89,17 +90,22 @@ public class OpenAiServiceImpl implements OpenAiService{
 								.responseConverter(response ->{
 									String schema = ModelOptionsUtils.getJsonSchema(StockPriceResponse.class, false);
 									String json = ModelOptionsUtils.toJsonString(response);
-									return schema + "\n" + json;
+									return json;
 								})
 							.build()))
 						.build();
 		
 		Message usermsg = new PromptTemplate(question.question()).createMessage();
 		
-		Message sysMsg =  new SystemPromptTemplate(stockPricePromptUserMessage).createMessage();
-				
-		var response  = aiChatModel.call(new Prompt(List.of(usermsg,sysMsg), promptOptions));
+		Message sysMsg = new SystemPromptTemplate(stockPricePromptUserMessage).createMessage();
 		
+		var response  = aiChatModel.call(new Prompt(List.of(usermsg, sysMsg), promptOptions));
+		
+		BeanOutputConverter<StockPriceResponse> converter = new BeanOutputConverter<>(StockPriceResponse.class);
+		
+		StockPriceResponse stockPriceResponse = converter.convert(response.getResult().getOutput().getContent());
+
+	
 		return new Answer(response.getResult().getOutput().getContent());
 	}
 	

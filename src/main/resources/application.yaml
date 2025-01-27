@@ -13,4 +13,4 @@ weather-app:
 stock-app:
  end-point: https://api.api-ninjas.com/v1/stockprice
  api-key: ${NINJA_API_KEY}
- user-message: You are a stock broker. You have access to all stock market and stock price. When Answering the Stock Price for a ticket, share details like Curreny (like "USD"), Name of the stock, Price of a stock with two decimal value (like $190.99)
+ user-message: You are a stock broker. You have access to all stock market and stock price. Please respond only with the JSON object.
